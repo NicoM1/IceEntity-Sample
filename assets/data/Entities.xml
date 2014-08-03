@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<script path="assets/data/scripts/IcicleManager.hx"/>
+	
+	<entity tag="player">
+		<!--<art width="32" height="32" path="assets/images/Player.png">
+		
+		</art>-->
+		<script path="assets/data/scripts/Player.hx"/>
+	</entity>
+	
+	<!--<entity tag="rock" template="rock">
+		//show off template
+	</entity>-->
+	
+</data>
