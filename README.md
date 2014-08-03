@@ -9,10 +9,10 @@ Note that nearly all code is contained in the "assets" folder, and supports live
 
 You'll mainly want to check out:
 
-assets\data\Entities.xml
+**assets\data\Entities.xml**
 
-assets\data\scripts\IcicleManager.hx
+**assets\data\scripts\IcicleManager.hx**
 
 and:
 
-Project.xml (IMPORTANT STUFF HERE)
+**Project.xml (IMPORTANT STUFF HERE)**
