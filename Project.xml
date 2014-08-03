@@ -42,7 +42,7 @@
 	<!-- This allows iceentity to live reload your scripts -->
 	<haxedef name="ICE_LIVE_RELOAD" unless="flash" />
 	
-	<!---- This makes for-loops work in scripts, the issue is being looked into by the hscript and haxeflixel teams -->
+	<!-- This makes for-loops work in scripts -->
 	<haxeflag name="-dce" value="no" />
 	
 	<!------------------------------------------------------------------------------>
