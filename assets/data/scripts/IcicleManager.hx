@@ -48,8 +48,6 @@ class IcicleManager
 	{
 		var icicle = new Entity("ice");
 		
-		icicle.makeGraphic(10, 20);
-		
 		icicle.scripts.ParseScript("assets/data/scripts/Icicle.hx");
 		
 		icicles.add(icicle);
