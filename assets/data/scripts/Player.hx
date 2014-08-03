@@ -5,6 +5,7 @@ import flixel.util.FlxColor;
 import ice.entity.Entity;
 import ice.entity.EntityManager;
 import Math;
+import flixel.FlxObject;
 
 class Player
 {
@@ -20,7 +21,6 @@ class Player
 	
 	public function init() 
 	{ 
-		owner.makeGraphic(20, 20, FlxColor.BLUE);
 		owner.y = FlxG.height - owner.height;
 	}
 	
@@ -30,9 +30,13 @@ class Player
 		
 		for (i in icicles.members)
 		{
-			if (i.overlaps(owner))
+			if (i.alive)
 			{
-				die();
+				if (i.overlaps(owner))
+				{
+					i.scripts.scripts[0].interp.variables.set("killIce", true); //THIS IS UGLY, a better solution will be coming soon!!
+					die();
+				}
 			}
 		}
 	}
@@ -51,11 +55,21 @@ class Player
 			if (FlxG.keys.pressed.LEFT && owner.velocity.x > -max)
 			{
 				moved = true;
+				if (owner.facing != FlxObject.LEFT)
+				{
+					owner.facing = FlxObject.LEFT;
+					owner.velocity.x = -owner.velocity.x / 3;
+				}
 				owner.velocity.x -= speed * FlxG.elapsed;
 			}
 			if (FlxG.keys.pressed.RIGHT && owner.velocity.x < max)
 			{
 				moved = true;
+				if (owner.facing != FlxObject.RIGHT)
+				{
+					owner.facing = FlxObject.RIGHT;
+					owner.velocity.x = -owner.velocity.x / 3;
+				}
 				owner.velocity.x += speed * FlxG.elapsed;
 			}
 		}
@@ -76,7 +90,6 @@ class Player
 	function die()
 	{
 		owner.alive = false;
-		
 	}
 	//@
 }

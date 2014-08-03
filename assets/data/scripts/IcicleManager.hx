@@ -8,31 +8,34 @@ import ice.entity.EntityManager;
 import flixel.util.FlxRandom;
 import flixel.FlxG;
 import ice.group.EntityGroup;
+import Std;
 
 class IcicleManager
 {
-	
-	var icicles:FlxTypedGroup<Entity> = new FlxTypedGroup(); 
 	/*You may create class instances here,
 	  unlike standard haxe. But you may never 
 	  use a type parameter on the 
 	  right of the declaration.*/
+	var icicles:FlxTypedGroup<Entity> = new FlxTypedGroup(); 
 	
 	public function init()
 	{
 		EntityManager.instance.AddGroup(icicles, "icicles");
-		buildIcicle();
+		
+		for (i in 0...5)
+		{
+			buildIcicle();
+		}
 	}
 	
 	public function update()
 	{	
-		icicles.forEachDead(respawn);
-		
+		icicles.forEachDead(respawn);		
 	}
 	
 	public function reload()
 	{
-		
+		//anything typed here will be run whenever the script is altered
 	}
 	
 	/*Any function in the following block is treated as a standard haxe function,
@@ -47,20 +50,23 @@ class IcicleManager
 		
 		icicle.makeGraphic(10, 20);
 		
-		icicle.x = FlxRandom.intRanged( -icicle.width, FlxG.width);
-		icicle.y = -icicle.height;
-		
 		icicle.scripts.ParseScript("assets/data/scripts/Icicle.hx");
 		
 		icicles.add(icicle);
+		
+		respawn(icicle);
 	}
 	
 	function respawn(i:Entity)
 	{
 		i.alive = true;
 		i.y = 0;
-		i.x = FlxRandom.intRanged( -icicle.width, FlxG.width);
-		icicle.y = -icicle.height;
+		i.x = FlxRandom.intRanged( -i.width, FlxG.width);
+		i.y = FlxRandom.intRanged( -300, -i.height);
+		
+		var type = FlxRandom.intRanged(0, 2);
+		
+		i.animation.play(Std.string(type));
 	}
 	//@
 }

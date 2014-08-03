@@ -1,16 +1,83 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
+	
+	<!-- spawns a script, disconnected from any entity -->
+	<!-- supports live-reloading -->
 	<script path="assets/data/scripts/IcicleManager.hx"/>
 	
+	<!-- as this script is specified in this file, not externally, it does not support live-reloading -->
+	<script>
+		<text>
+			import flixel.FlxG;
+			
+			function init
+			{
+				FlxG.camera.bgColor = 0xFFFFFF;
+			}
+		</text>
+	</script>
+	
+	<!-- spawns an entity -->
 	<entity tag="player">
-		<!--<art width="32" height="32" path="assets/images/Player.png">
-		
-		</art>-->
+		<!-- loads a simple image to the entity -->
+		<art width="15" height="15" path="assets/images/Player.png"/>
+		<!-- spawns a live-reloadable script, with an "owner" variable connected to this entity -->
 		<script path="assets/data/scripts/Player.hx"/>
 	</entity>
 	
-	<!--<entity tag="rock" template="rock">
-		//show off template
-	</entity>-->
+	<entity tag="top">
+		<art width="220" height="5" path="assets/images/Top.png"/>
+	</entity>
+	
+	<entity tag="floor">
+		<script>
+			<text>
+				import flixel.FlxG;
+				
+				function init
+				{
+					owner.makeGraphic(FlxG.width, 2, 0xFF000000);
+					owner.y = FlxG.height - owner.height;
+				}
+			</text>
+		</script>
+	</entity>
+	
+	<!-- creates a template which can be instantiated multiple times -->
+	<entity tag="rock" template="rock">
+		<art width="15" height="15" path="assets/images/Rocks.png">
+			<!-- adds an animation to the entity -->
+			<animation name="0" frames="0" framerate="1"/>
+			<animation name="1" frames="1" framerate="1"/>
+			<!-- this supports fancy stuff like: -->
+			<!-- <animation name="idle" frames="0,1,2,3-6,6-0" framerate="10" looped="true" autorun="true"/> -->
+			<!-- note the hyphenation, and even reverse frame declarations  -->
+		</art>
+		<script>
+			<text>
+				import flixel.util.FlxRandom;
+				import Std;
+				import flixel.FlxG;
+				
+				function init
+				{
+					var type = FlxRandom.intRanged(0, 1);
+		
+					owner.animation.play(Std.string(type));
+				}
+			</text>
+		</script>
+	</entity>
+	
+	<!-- creates an instance of a template -->
+	<instance template="rock" tag="hey look you can change the tag" x="0" y="105"/>
+	<instance template="rock" x="24" y="105"/>
+	<instance template="rock" x="47" y="105"/>
+	<instance template="rock" x="86" y="105"/>
+	<instance template="rock" x="113" y="105"/>
+	<instance template="rock" x="156" y="105"/>
+	<instance template="rock" x="172" y="105"/>
+	<instance template="rock" x="198" y="105"/>
+	<instance template="rock" x="214" y="105"/>
 	
 </data>
